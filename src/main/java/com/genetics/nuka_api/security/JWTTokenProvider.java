@@ -15,9 +15,10 @@ import static com.genetics.nuka_api.security.SecurityConstant.SECRET;
 
 @Component
 public class JWTTokenProvider {
-
+  
     public String generateToken(Authentication authentication){
-        User user = (User )authentication.getPrincipal();
+
+        User user =(User)authentication.getPrincipal();
         Date now = new Date(System.currentTimeMillis());
 
         Date expiryDate = new Date(now.getTime()+EXPIRATION_TIME);
@@ -27,6 +28,7 @@ public class JWTTokenProvider {
         Map<String,Object> claims = new HashMap<>();
         claims.put("id", (Long.toString(user.getId())));
         claims.put("username", user.getUsername());
+        claims.put("firstname", user.getFirstname());
         claims.put("surname", user.getSurname());
         claims.put("role", user.getRole());
 

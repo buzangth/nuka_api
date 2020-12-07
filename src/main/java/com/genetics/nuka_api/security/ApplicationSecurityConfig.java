@@ -19,19 +19,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Autowired
     JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-
-//    @Bean
-//    public JwtAuthenticationFilter jwtAuthenticationFilter (){
-//        return new JwtAuthenticationFilter();
-//    }
-
 
     @Autowired
     public ApplicationSecurityConfig(PasswordEncoder passwordEncoder) {

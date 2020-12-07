@@ -1,18 +1,20 @@
 package com.genetics.nuka_api.model;
 
 
-
-// org.springframework.boot.autoconfigure.domain.EntityScan;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.genetics.nuka_api.security.ApplicationUserRole;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Table(name="users")
 @Entity
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,6 +40,38 @@ public class User {
 
     @Column(name="branch")
     private String branch;
+
+
+
+    @Override
+    @JsonIgnore
+    public Set<? extends GrantedAuthority> getAuthorities() {
+        return role.getGrantedAuthorities();
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isEnabled() {
+        return true;
+    }
 
     public User() {
     }
@@ -82,8 +116,8 @@ public class User {
         this.password = password;
     }
 
-    public ApplicationUserRole getRole() {
-        return role;
+    public Set<SimpleGrantedAuthority> getRole() {
+        return role.getGrantedAuthorities();
     }
 
     public void setRole(ApplicationUserRole role) {
