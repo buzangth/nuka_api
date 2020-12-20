@@ -1,4 +1,4 @@
-package com.genetics.nuka_api.exception;
+package com.genetics.nuka_api.exception.UserException;
 
 
 public class UserIdExceptionResponse {

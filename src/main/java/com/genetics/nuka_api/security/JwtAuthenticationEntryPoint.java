@@ -1,6 +1,6 @@
 package com.genetics.nuka_api.security;
 
-import com.genetics.nuka_api.exception.InvalidLoginResponse;
+import com.genetics.nuka_api.exception.UserException.InvalidLoginResponse;
 import com.google.gson.Gson;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

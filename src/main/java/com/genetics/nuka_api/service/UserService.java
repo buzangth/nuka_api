@@ -1,6 +1,6 @@
 package com.genetics.nuka_api.service;
 
-import com.genetics.nuka_api.exception.UserIdException;
+import com.genetics.nuka_api.exception.UserException.UserIdException;
 import com.genetics.nuka_api.model.User;
 import com.genetics.nuka_api.repositiry.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
