@@ -17,7 +17,7 @@ public class ProductService {
         try{
             return productRepository.save(product);
         }catch (Exception e){
-            throw  new ProductIdException("Product Id'" + product.getProductName() + "'product name already exist");
+            throw  new ProductIdException("Product Id'" + product.getName() + "'product name already exist");
 
         }
     }

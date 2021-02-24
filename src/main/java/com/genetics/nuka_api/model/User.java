@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Table(name="users")
@@ -41,12 +43,16 @@ public class User implements UserDetails {
     @Column(name="branch")
     private String branch;
 
+    @OneToMany(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
+    @JsonIgnore
+    private List<Product> products = new ArrayList<>();
+
 
 
     @Override
     @JsonIgnore
     public Set<? extends GrantedAuthority> getAuthorities() {
-        return role.getGrantedAuthorities();
+        return getRole();
     }
 
     @Override
@@ -130,5 +136,13 @@ public class User implements UserDetails {
 
     public void setBranch(String branch) {
         this.branch = branch;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

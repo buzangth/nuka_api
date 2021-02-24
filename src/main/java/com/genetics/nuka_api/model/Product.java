@@ -1,8 +1,9 @@
 package com.genetics.nuka_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.File;
 
 @Table(name="products")
 @Entity
@@ -11,11 +12,22 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "productname is required")
-    private String productName;
-    private String productDescription;
-    private int productCount;
-    private File productImage;
+    @NotBlank(message = "product name is required")
+    private String name;
+    @NotBlank(message = "product description is required")
+    private String description;
+    @NotBlank(message = "product count is required")
+    private int count;
+
+    private double amount;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
+
+
+//    private File productImage;
 
     public Product() {
     }
@@ -28,35 +40,51 @@ public class Product {
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getProductDescription() {
-        return productDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getProductCount() {
-        return productCount;
+    public int getCount() {
+        return count;
     }
 
-    public void setProductCount(int productCount) {
-        this.productCount = productCount;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public File getProductImage() {
-        return productImage;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setProductImage(File productImage) {
-        this.productImage = productImage;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    //    public File getProductImage() {
+//        return productImage;
+//    }
+
+//    public void setProductImage(File productImage) {
+//        this.productImage = productImage;
+//    }
 }

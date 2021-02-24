@@ -1,7 +1,7 @@
 package com.genetics.nuka_api.controller;
 
 import com.genetics.nuka_api.model.Product;
-import com.genetics.nuka_api.model.User;
+
 import com.genetics.nuka_api.service.MapValidationServiceError;
 import com.genetics.nuka_api.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
