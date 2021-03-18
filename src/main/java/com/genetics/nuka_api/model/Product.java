@@ -21,6 +21,8 @@ public class Product {
 
     private double amount;
 
+    private String productCreater;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
@@ -80,6 +82,13 @@ public class Product {
         this.user = user;
     }
 
+    public String getProductCreater() {
+        return productCreater;
+    }
+
+    public void setProductCreater(String productCreater) {
+        this.productCreater = productCreater;
+    }
     //    public File getProductImage() {
 //        return productImage;
 //    }

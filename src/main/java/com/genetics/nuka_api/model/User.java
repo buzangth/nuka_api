@@ -2,7 +2,6 @@ package com.genetics.nuka_api.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.genetics.nuka_api.security.ApplicationUserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +16,8 @@ import java.util.Set;
 @Table(name="users")
 @Entity
 public class User implements UserDetails {
+
+    public enum UserRoles{ADMIN,USER}
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,7 +39,7 @@ public class User implements UserDetails {
     private String password;
 
     @Column(name="role")
-    private ApplicationUserRole role;
+    private UserRoles role;
 
     @Column(name="branch")
     private String branch;
@@ -52,7 +53,7 @@ public class User implements UserDetails {
     @Override
     @JsonIgnore
     public Set<? extends GrantedAuthority> getAuthorities() {
-        return getRole();
+        return null;
     }
 
     @Override
@@ -122,11 +123,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Set<SimpleGrantedAuthority> getRole() {
-        return role.getGrantedAuthorities();
+    public UserRoles getRole() {
+        return role;
     }
 
-    public void setRole(ApplicationUserRole role) {
+    public void setRole(UserRoles role) {
         this.role = role;
     }
 

@@ -21,10 +21,10 @@ import static com.genetics.nuka_api.security.SecurityConstant.TOKEN_PREFIX;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private JWTTokenProvider jwtTokenProvider;
+    JWTTokenProvider jwtTokenProvider;
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    UserDetailsServiceImpl userDetailsServiceImpl;
 
 
     @Override
@@ -33,12 +33,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String jwt = getJWTFromRequest(httpServletRequest);
 
-            if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)){
+            if (StringUtils.hasText(jwt)&&jwtTokenProvider.validateToken(jwt)){
                 Long userId = jwtTokenProvider.getUserIdFromJWT(jwt);
-                User userDetails = userDetailsService.loadUserById(userId);
+                User userDetails = userDetailsServiceImpl.loadUserById(userId);
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails,null, Collections.emptyList());
+                        userDetails, null, Collections.emptyList());
 
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private String getJWTFromRequest(HttpServletRequest request){
         String bearerToken = request.getHeader(HEADER_STRING);
 
-        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith(TOKEN_PREFIX)){
+        if(StringUtils.hasText(bearerToken)&&bearerToken.startsWith(TOKEN_PREFIX)){
             return bearerToken.substring(7, bearerToken.length());
         }
         return null;
